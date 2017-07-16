@@ -3,4 +3,4 @@ linux-based python memory editor
 
 Usage:
 
-`sudo python memory.py <pid> <search term> <replace term>`
+`sudo python2 memory.py <pid> <search term> <replace term>`
