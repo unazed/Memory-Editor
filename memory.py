@@ -5,7 +5,6 @@ from re import compile as _compile  # to not overwrite STL fn. compile
 from pprint import pprint
 
 
-# CHECKS
 assert len(argv) == 4  # python file.py <pid> <term to search> <string to replace with>
 assert argv[1].isdigit()  # must be integer
 assert not geteuid()  # must be root
