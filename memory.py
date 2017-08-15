@@ -1,7 +1,6 @@
 from sys import argv, exit
 from os import geteuid
 from re import findall
-from re import compile as _compile  # to not overwrite STL fn. compile
 from pprint import pprint
 
 
@@ -9,13 +8,13 @@ assert len(argv) == 4  # python file.py <pid> <term to search> <string to replac
 assert argv[1].isdigit()  # must be integer
 assert not geteuid()  # must be root
 
-map_pattern = _compile(r"(?P<address>[0-9a-f\-]+) rw")
+map_pattern = r"(?P<address>[0-9a-f\-]+) rw"
 address_map = []
 
 with open("/proc/%s/maps" % argv[1]) as maps:
     for line in maps:
-        _ = findall(map_pattern, line)
-        if not _:
+        pats = findall(map_pattern, line)
+        if not pats:
             continue
         address_map.append(line.rstrip())
 
@@ -23,7 +22,6 @@ address_map = [x.split()[0] for x in address_map]
 
 with open("/proc/%s/mem" % argv[1], "r+b") as memory: 
     for address in address_map:
-        
         try:
             memory.seek(int(address.split('-')[0], 16))
         except IOError:
