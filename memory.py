@@ -1,4 +1,5 @@
-from sys import argv, exit
+from sys import argv
+from sys import exit
 from os import geteuid
 from re import findall
 from pprint import pprint
